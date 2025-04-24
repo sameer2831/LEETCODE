@@ -7,7 +7,7 @@ class Solution {
         int totaldistinct=distinct.size();
         int count=0;
         int n=nums.length;
-        for(int i=0;i<n;i++)
+        for(int i=0;i<=n-totaldistinct;i++)
         {
             Set<Integer> currentset=new HashSet<>();
             for(int j=i;j<n;j++)
