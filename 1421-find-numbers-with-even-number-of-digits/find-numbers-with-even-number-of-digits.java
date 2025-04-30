@@ -1,14 +1,13 @@
 class Solution {
     public int findNumbers(int[] nums) {
-        int result=0;
-        for(int num: nums){
-            String digits=Integer.toString(num);
-            if(digits.length()%2==0)
-            {
-                result++;
-            }
+        int count = 0;
+        for (int x : nums) {
+            int digits = 0;
+            for (; x > 0; x /= 10)
+                digits++;
+            if ((digits & 1) == 0)
+                count++;
         }
-        return result;
-        
+        return count;
     }
 }
