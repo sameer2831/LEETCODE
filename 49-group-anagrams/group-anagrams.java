@@ -1,18 +1,18 @@
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        Map<String,List<String>> result=new HashMap<>();
-        for(String s:strs)
+        HashMap<String,List<String>> maps=new HashMap<>();
+        for(int i=0;i<strs.length;i++)
         {
-            int count[]=new int[26];
-            for(char c:s.toCharArray())
+            char[] arr=strs[i].toCharArray();
+            Arrays.sort(arr);
+            String s=Arrays.toString(arr);
+            if(!maps.containsKey(s))
             {
-                count[c-'a']++;
+                maps.put(s,new ArrayList<>());
             }
-            String key=Arrays.toString(count);
-            result.putIfAbsent(key,new ArrayList<>());
-            result.get(key).add(s);
+            maps.get(s).add(strs[i]);
         }
-        return new ArrayList<>(result.values());
-        
+        return new  ArrayList<>(maps.values());
+
     }
 }
