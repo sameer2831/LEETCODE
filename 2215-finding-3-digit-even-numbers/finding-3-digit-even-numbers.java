@@ -1,37 +1,36 @@
-import java.util.ArrayList;
 class Solution {
-        public static int[] convertIntSetToStringSet( 
-                Set<Integer> setOfInteger) 
-        { 
-        return setOfInteger.stream() 
-        .mapToInt(Integer::intValue) 
-        .toArray(); 
-        } 
-    public int[] findEvenNumbers(int[] digits) {
-        int n=digits.length;
-        //ArrayList<Integer> res=new ArrayList<Integer>();
-        Set<Integer> result=new HashSet<>();
-        for(int i=0;i<n;i++)
+    private static int[] convertToIntArray(ArrayList<Integer> list) 
+    {
+        int[] intArray = new int[list.size()];
+        
+        for (int i = 0; i < list.size(); i++) 
         {
-            for(int j=0;j<n;j++)
-            {
-                for(int k=0;k<n;k++)
-                {
-                    if(i!=j && j!=k && i!=k)
-                    {
-                        int num=digits[i]*100+digits[j]*10+digits[k];
-                        if(num%2==0 && num>99)
-                        {
-                            result.add(num);
-                        }
-                    }
+            intArray[i] = list.get(i);
+        }
+
+        return intArray;
+    }
+    public int[] findEvenNumbers(int[] digits) {
+        int[] freq = new int[10];
+        for (int d : digits) freq[d]++;
+
+        ArrayList<Integer> result = new ArrayList<>();
+        for (int i = 100; i <= 998; i += 2) {
+            int a = i / 100, b = (i / 10) % 10, c = i % 10;
+            int[] local = new int[10];
+            local[a]++;
+            local[b]++;
+            local[c]++;
+            boolean valid = true;
+            for (int d = 0; d < 10; d++) {
+                if (local[d] > freq[d]) {
+                    valid = false;
+                    break;
                 }
             }
+            if (valid) result.add(i);
         }
-        int[] arr=convertIntSetToStringSet(result);
-        Arrays.sort(arr);
-        //arr=res.toArray(arr);
-        return arr;
-        
+        int[] intArray = convertToIntArray(result);
+        return intArray;
     }
 }
