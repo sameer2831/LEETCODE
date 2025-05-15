@@ -1,23 +1,31 @@
 class Solution {
     public int[][] mergeArrays(int[][] nums1, int[][] nums2) {
-        HashMap<Integer,Integer> map=new HashMap<>();
-        for(int i=0;i<nums1.length;i++)
-        {
-            map.put(nums1[i][0],nums1[i][1]);
+        int m = nums1.length, n = nums2.length;
+        int i = 0, j = 0;
+        List<int[]> result = new ArrayList<>();
+
+        while(i < m && j < n){
+            if(nums1[i][0] == nums2[j][0]){
+                result.add(new int[]{nums1[i][0], nums1[i][1] + nums2[j][1]});
+                i++; j++;
+            }
+            else if(nums1[i][0] < nums2[j][0]){
+                result.add(nums1[i]);
+                i++;
+            }
+            else{
+                result.add(nums2[j]);
+                j++;
+            }
         }
-        for(int j=0;j<nums2.length;j++)
-        {
-            map.put(nums2[j][0],map.getOrDefault(nums2[j][0],0)+nums2[j][1]);
+        while(i < m){
+            result.add(nums1[i]);
+            i++;
         }
-        int[][] result=new int[map.size()][2];
-        int index=0;
-        for(int n:map.keySet())
-        {
-            result[index][0]=n;
-            result[index][1]=map.get(n);
-            index++;
+        while(j < n){
+            result.add(nums2[j]);
+            j++;
         }
-        Arrays.sort(result, (a, b) -> Integer.compare(a[0],b[0]));
-        return result;
+        return result.toArray(new int[result.size()][]);
     }
 }
