@@ -1,32 +1,15 @@
 class Solution {
     public void moveZeroes(int[] nums) {
-        int n=nums.length;
-        if(n==1)
-        {
-            System.out.println(nums);
-        }
-        else{
-            List<Integer> zeroes=new ArrayList<>();
-            int index=0;
-            for(int i=0;i<n;i++)
-            {
-                if(nums[i]==0)
-                {
-                    zeroes.add(i);
-                }
-                else
-                {
-                    nums[index]=nums[i];
-                    index++;
-                }
+        int nonzero = 0; // Pointer to place the next non-zero element
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                // Swap non-zero element with the element at `nonzero`
+                int temp = nums[i];
+                nums[i] = nums[nonzero];
+                nums[nonzero] = temp;
+                nonzero++; // Increment the nonzero pointer
             }
-            for(int i=n-zeroes.size();i<n;i++)
-            {
-                nums[i]=0;
-            }
-            System.out.println(nums);
-            
         }
-        
     }
 }
