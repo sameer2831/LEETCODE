@@ -1,23 +1,32 @@
 class Solution {
-    public int maxRemoval(int[] nums, int[][] queries) {
-        Arrays.sort(queries, (a, b) -> Integer.compare(a[0], b[0]));
-        PriorityQueue<Integer> available = new PriorityQueue<>(Collections.reverseOrder());
-        PriorityQueue<Integer> assigned = new PriorityQueue<>();
-        int count = 0;
-        for (int time = 0, k = 0; time < nums.length; time++) {
-            while (!assigned.isEmpty() && assigned.peek() < time)
-                assigned.poll();
-            while (k < queries.length && queries[k][0] <= time)
-                available.add(queries[k++][1]);
-            while (assigned.size() < nums[time]
-                   && !available.isEmpty()
-                   && available.peek() >= time) {
-                assigned.add(available.poll());
-                count++;
-            }
-            if (assigned.size() < nums[time])
-                return -1;
+    public static int maxRemoval(int[] nums, int[][] queries) {
+        int n = nums.length, q = queries.length;
+        List<List<Integer>> qEnd = new ArrayList<>();
+        for (int i = 0; i < n; i++) qEnd.add(new ArrayList<>());
+        for (int[] query : queries) {
+            qEnd.get(query[0]).add(query[1]);
         }
-        return queries.length - count;
+
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        int[] cntQ = new int[n + 1];
+        int dec = 0;
+
+        for (int i = 0; i < n; i++) {
+            dec += cntQ[i];
+            for (int end : qEnd.get(i)) {
+                pq.offer(end);
+            }
+
+            int x = nums[i];
+            while (x > dec && !pq.isEmpty() && pq.peek() >= i) {
+                int k = pq.poll();
+                cntQ[k + 1]--;
+                dec++;
+            }
+
+            if (x > dec) return -1;
+        }
+
+        return pq.size();
     }
 }
