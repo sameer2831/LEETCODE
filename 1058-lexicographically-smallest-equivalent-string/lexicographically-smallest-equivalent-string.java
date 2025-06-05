@@ -1,43 +1,32 @@
-import java.util.*;
-
 class Solution {
+    private int[] p;
+
     public String smallestEquivalentString(String s1, String s2, String baseStr) {
-        Map<Character, List<Character>> adj = new HashMap<>();
-        int n = s1.length();
-
-        // Build the adjacency list
-        for (int i = 0; i < n; i++) {
-            char u = s1.charAt(i);
-            char v = s2.charAt(i);
-
-            adj.computeIfAbsent(u, k -> new ArrayList<>()).add(v);
-            adj.computeIfAbsent(v, k -> new ArrayList<>()).add(u);
+        p = new int[26];
+        for (int i = 0; i < 26; ++i) {
+            p[i] = i;
         }
-
-        StringBuilder result = new StringBuilder();
-
-        for (char ch : baseStr.toCharArray()) {
-            boolean[] visited = new boolean[26];
-            char minChar = dfs(adj, ch, visited);
-            result.append(minChar);
-        }
-
-        return result.toString();
-    }
-
-    private char dfs(Map<Character, List<Character>> adj, char ch, boolean[] visited) {
-        visited[ch - 'a'] = true;
-        char minChar = ch;
-
-        for (char neighbor : adj.getOrDefault(ch, new ArrayList<>())) {
-            if (!visited[neighbor - 'a']) {
-                char candidate = dfs(adj, neighbor, visited);
-                if (candidate < minChar) {
-                    minChar = candidate;
-                }
+        for (int i = 0; i < s1.length(); ++i) {
+            int a = s1.charAt(i) - 'a', b = s2.charAt(i) - 'a';
+            int pa = find(a), pb = find(b);
+            if (pa < pb) {
+                p[pb] = pa;
+            } else {
+                p[pa] = pb;
             }
         }
+        StringBuilder sb = new StringBuilder();
+        for (char a : baseStr.toCharArray()) {
+            char b = (char) (find(a - 'a') + 'a');
+            sb.append(b);
+        }
+        return sb.toString();
+    }
 
-        return minChar;
+    private int find(int x) {
+        if (p[x] != x) {
+            p[x] = find(p[x]);
+        }
+        return p[x];
     }
 }
