@@ -1,29 +1,16 @@
 class Solution {
+
     public boolean isArraySpecial(int[] nums) {
-        if(nums.length==1 || nums.length==0)
-        {
-            return true;
-        }
-        if(nums[0]%2==0)
-        {
-            for(int i=1;i<nums.length;i++)
-            {
-                if((i%2!=0 && nums[i]% 2 ==0) || (i%2==0 && nums[i]%2!=0))
-                {
-                    return false;
-                }
+        // Iterate through indexes 0 to n - 1
+        for (int index = 0; index < nums.length - 1; index++) {
+            // Compare the parities of the current and next number
+            if (nums[index] % 2 == nums[index + 1] % 2) {
+                // If the two adjacent numbers have the same parity, return false
+                return false;
             }
         }
-        else{
-            for(int i=1;i<nums.length;i++)
-            {
-                if((i%2!=0 && nums[i]% 2 !=0) || (i%2==0 && nums[i]%2==0))
-                {
-                    return false;
-                }
-            }
-        }
+
+        // Return true if no pair of adjacent numbers with the same parity are found
         return true;
-        
     }
 }
