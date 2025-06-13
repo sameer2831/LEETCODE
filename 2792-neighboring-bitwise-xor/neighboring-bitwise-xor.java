@@ -1,19 +1,28 @@
 class Solution {
     public boolean doesValidArrayExist(int[] derived) {
         int n=derived.length;
-        int[] org=new int[n];
+        int sum=0;
 
-        //Populating the org array
-        for(int i=1; i<n; i++){
-            org[i]=derived[i-1]^org[i-1];
-        }
+        
+        // Hints-02: The xor-sum of the derived array should be 0 since there is always a duplicate occurrence of each element.
 
-        //Validating the rules for index i
+        // Example: Length of derived=4
+        //     derived[0]=org[0]^org[1]
+        //     derived[1]=org[1]^org[2]
+        //     derived[2]=org[2]^org[3]
+        //     derived[3]=org[3]^org[0]
+
+        //     Xor-Sum = derived[0] ^ derived[1] ^ derived[2] ^ derived[3]
+        //     Xor-Sum = (org[0]^org[1]) ^ (org[1]^org[2]) ^ (org[2]^org[3]) ^ (org[3]^org[0])
+        //     //re-arrange it.....
+        //     Xor-Sum = (org[0]^org[0]) ^ (org[1]^org[1]) ^ (org[2]^org[2]) ^ (org[3]^org[3])
+        //     Xor-Sum = 0
+        
+        
         for(int i=0; i<n; i++){
-            int idx=(i+1)%n;
-            if(derived[i]!=(org[i]^org[idx])) return false;
+            sum^=derived[i];
         }
 
-        return true;
+        return sum==0;
     }
 }
