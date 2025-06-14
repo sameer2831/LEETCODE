@@ -1,17 +1,28 @@
 class Solution {
     public int minMaxDifference(int num) {
-        String s = Integer.toString(num);
+        String number = Integer.toString(num);
         char firstNon9 = 0;
         char firstNon0 = 0;
 
-        for (char c : s.toCharArray()) {
-            if (firstNon9 == 0 && c >= '0' && c <= '8') firstNon9 = c;
-            if (firstNon0 == 0 && c >= '1' && c <= '9') firstNon0 = c;
+        for (char n : number.toCharArray()) {
+            if (firstNon9 == 0 && n >= '0' && n <= '8') firstNon9 = n;
+            if (firstNon0 == 0 && n >= '1' && n <= '9') firstNon0 = n;
         }
 
-        String maxStr = (firstNon9 != 0) ? s.replace(firstNon9, '9') : s;
-        String minStr = (firstNon0 != 0) ? s.replace(firstNon0, '0') : s;
+        String maxN;
+        if(firstNon9 != 0) {
+            maxN=number.replace(firstNon9, '9');
+        }
+        else{
+            maxN=number;
+        }
+        String minN; 
+        if(firstNon0 != 0){
+            minN=number.replace(firstNon0, '0');
+        }else{
+            minN=number;
+        } 
 
-        return Integer.parseInt(maxStr) - Integer.parseInt(minStr);
+        return Integer.parseInt(maxN) - Integer.parseInt(minN);
     }
 }
