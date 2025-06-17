@@ -1,12 +1,8 @@
 class Solution {
     public boolean isVowel(char c)
     {
-        String v="aeiouAEIOU";
-        if(v.contains(String.valueOf(c)))
-        {
-            return true;
-        }
-        else return false;
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u'
+                || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';
     }
     public String reverseVowels(String s) {
         char[] words=s.toCharArray();
