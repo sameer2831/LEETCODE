@@ -4,7 +4,7 @@ class Solution {
         for(char c:s.toCharArray())
         {
             low+=(c=='(')?1:-1;
-            high+=(c!=')')? 1:-1;
+            high+=(c==')')? -1:1;
             if(high<0)
             {
                 return false;
