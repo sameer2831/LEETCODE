@@ -11,8 +11,11 @@ class Solution {
                 for (int i = l; i < r; ++i) {
                     res.add(i);
                 }
+                if(l>=n-1){
+                    break;
+                }
             }
-           
+
         }
         return res;
     }
