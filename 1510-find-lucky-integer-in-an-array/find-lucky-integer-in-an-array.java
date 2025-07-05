@@ -4,7 +4,13 @@ class Solution {
 
         for (int num : numbers) freq[num]++; 
 
-        for (int i = 500; i > 0; i--) if (i == freq[i]) return i;  
+        for (int i = 500; i > 0; i--){
+            while(freq[i]==0 && i>1)
+            {
+                i--;
+            }
+            if (i == freq[i]) return i;  
+        } 
 
         return -1;
     }
