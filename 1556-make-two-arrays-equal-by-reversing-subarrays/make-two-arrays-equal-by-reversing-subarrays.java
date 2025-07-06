@@ -1,25 +1,19 @@
 class Solution {
-    public boolean canBeEqual(int[] target, int[] arr) {
-        Map<Integer,Integer> maps=new HashMap<>();
-        for(int n:arr)
-        {
-            maps.put(n,maps.getOrDefault(n,0)+1);
+    public boolean canBeEqual(int[] targetArray, int[] currentArray) {
+        int n=targetArray.length;
+
+
+
+        int[] e=new int[1001];
+        for (int i=0; i<n; i++) {
+            e[targetArray[i]]++;
+            e[currentArray[i]]--;
         }
-        for(int t:target)
-        {
-            if(maps.containsKey(t))
-            {
-                maps.put(t,maps.get(t)-1);
-                if(maps.get(t)<=0)
-                {
-                    maps.remove(t);
-                }
-            }
-            else{
+        for (int c:e) {
+            if (c!=0) {
                 return false;
             }
         }
-        return maps.size()==0;
-        
+        return true;
     }
 }
