@@ -4,8 +4,7 @@ class Solution {
         int len=0;
         int n=nums.length;
         if(n==0) return 0;
-        if(n==1 && nums[0]==0) return 0;
-        if(n==1 && nums[0]==1) {return 1;}
+        
         for(int i:nums)
         {
             if(i==1)
