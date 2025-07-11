@@ -1,23 +1,18 @@
 class Solution {
-    public int minimumCost(int[] cost) {
-        int n=cost.length;
-        int sum=0;
-        if(n<3)
-        {
-            for(int a:cost)
-            {
-                sum+=a;
-            }
-            return sum;
-        }
+    public int minimumCost(final int[] cost) {
+        final int n = cost.length;
+
         Arrays.sort(cost);
-        
-        for(int i=n-1;i>=0;i-=3)
-        {
-            System.out.println(i);
-            if(i-1>-1) sum+=(cost[i]+cost[i-1]);
-            else sum+=cost[i];
+
+        int total = 0, i = n - 1;
+
+        while(i >= 0) {
+            for(int j = i; j >= i - 1 && j >= 0; --j)
+                total += cost[j];
+
+            i -= 3;
         }
-        return sum;
+
+        return total;
     }
 }
