@@ -5,29 +5,24 @@ class Solution {
         int n=arr.length;
         if(n==2)
         {
-            List<Integer> lis=new ArrayList<>();
-            lis.add(arr[0]);
-            lis.add(arr[1]);
-            res.add(lis);
+            res.add(Arrays.asList(arr[0],arr[1]));
             return res;
         }
         int minDiff=arr[n-1];
         for(int i=1;i<n;i++)
         {
             int diff=Math.abs(arr[i]-arr[i-1]);
-            minDiff=Math.min(minDiff,diff);
-        }
-        for(int i=1;i<n;i++)
-        {
-            int diff=Math.abs(arr[i]-arr[i-1]);
-            if(diff==minDiff)
+            if(diff<minDiff)
             {
-                List<Integer> temp=new ArrayList<>();
-                temp.add(arr[i-1]);
-                temp.add(arr[i]);
-                res.add(temp);
+                minDiff=diff;
+                res.clear();
+                res.add(Arrays.asList(arr[i-1],arr[i]));
+            }else if(diff==minDiff)
+            {
+                res.add(Arrays.asList(arr[i-1],arr[i]));
             }
         }
+       
         return res;
     }
 }
