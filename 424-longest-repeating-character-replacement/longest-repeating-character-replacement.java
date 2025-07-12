@@ -12,10 +12,7 @@ class Solution {
             while(r-l+1-maxF>k)
             {
                 maps.put(s.charAt(l),maps.get(s.charAt(l))-1);
-                if(maps.get(s.charAt(l))==0)
-                {
-                    maps.remove(s.charAt(l));
-                }
+                
                 l++;
             }
             maxLen=Math.max(maxLen,r-l+1);
