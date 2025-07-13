@@ -5,7 +5,9 @@ class Solution {
         int i = 0, j = 0, count = 0;
         while (i < player.length && j < tire.length) {
             if (player[i] <= tire[j]) {
-                i++; count++;
+                i++;
+                count++;
+                
             }
             j++;
         }
