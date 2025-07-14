@@ -6,26 +6,25 @@ class Solution {
         return answer;
     }
 
-    private void backtracking(
-        List<String> answer,
-        StringBuilder curString,
-        int leftCount,
-        int rightCount,
-        int n
-    ) {
-        if (curString.length() == 2 * n) {
-            answer.add(curString.toString());
+    private void backtracking(List<String> result,StringBuilder currString,int open,int close,int n)
+    {
+        if(currString.length()==2*n)
+        {
+            result.add(currString.toString());
             return;
         }
-        if (leftCount < n) {
-            curString.append("(");
-            backtracking(answer, curString, leftCount + 1, rightCount, n);
-            curString.deleteCharAt(curString.length() - 1);
+        if(open<n)
+        {
+            currString.append("(");
+            backtracking(result,currString,open+1,close,n);
+            currString.deleteCharAt(currString.length()-1);
         }
-        if (leftCount > rightCount) {
-            curString.append(")");
-            backtracking(answer, curString, leftCount, rightCount + 1, n);
-            curString.deleteCharAt(curString.length() - 1);
+        if(close<open)
+        {
+            currString.append(")");
+            backtracking(result,currString,open,close+1,n);
+            currString.deleteCharAt(currString.length()-1);
         }
     }
+       
 }
