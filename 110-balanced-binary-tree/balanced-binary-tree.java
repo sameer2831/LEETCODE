@@ -1,42 +1,26 @@
 // Utility class to store information from recursive calls
-final class TreeInfo {
-    public final int height;
-    public final boolean balanced;
-
-    public TreeInfo(int height, boolean balanced) {
-        this.height = height;
-        this.balanced = balanced;
-    }
-}
-
 class Solution {
-    // Return whether or not the tree at root is balanced while also storing
-    // the tree's height in a reference variable.
-    private TreeInfo isBalancedTreeHelper(TreeNode root) {
-        // An empty tree is balanced and has height = -1
-        if (root == null) {
-            return new TreeInfo(-1, true);
+
+    // Returns the subtree height, or –1 if this subtree is already unbalanced
+    private int check(TreeNode node) {
+        if (node == null) {
+            return 0;          // empty subtree → height 0
         }
 
-        // Check subtrees to see if they are balanced.
-        TreeInfo left = isBalancedTreeHelper(root.left);
-        if (!left.balanced) {
-            return new TreeInfo(-1, false);
-        }
-        TreeInfo right = isBalancedTreeHelper(root.right);
-        if (!right.balanced) {
-            return new TreeInfo(-1, false);
+        int left  = check(node.left);   // height of left subtree
+        if (left == -1) return -1;      // left side already unbalanced
+
+        int right = check(node.right);  // height of right subtree
+        if (right == -1) return -1;     // right side already unbalanced
+
+        if (Math.abs(left - right) > 1) {
+            return -1;        // this node makes the tree unbalanced
         }
 
-        // Use the height obtained from the recursive calls to
-        // determine if the current node is also balanced.
-        if (Math.abs(left.height - right.height) < 2) {
-            return new TreeInfo(Math.max(left.height, right.height) + 1, true);
-        }
-        return new TreeInfo(-1, false);
+        return 1 + Math.max(left, right);  // balanced → return height
     }
 
     public boolean isBalanced(TreeNode root) {
-        return isBalancedTreeHelper(root).balanced;
+        return check(root) != -1;
     }
 }
