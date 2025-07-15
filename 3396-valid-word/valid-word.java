@@ -1,30 +1,24 @@
-class Solution {
-    
-    public boolean isValid(String word) {
-        //word=word.toLowerCase();
-        if(word.length()<3) return false;
-        String REGEX = "^[a-zA-Z0-9]*$";
-        if( !word.matches(REGEX)) return false;
-        boolean hasVowel=false,hasConsonant=false;
-        for(int i=0;i<word.length();i++)
-        {
-            char c=word.charAt(i);
-            if (Character.isLetter(c)) 
-            {
-                char lower=(char)(c|32);
-                if (lower == 'a' || lower == 'e' || lower == 'i' || lower == 'o' || lower == 'u') 
-                {
-                    hasVowel = true;
-                } 
-                else 
-                {
-                    // Step 3.2.2: Otherwise it's a consonant
-                    hasConsonant = true;
+public class Solution {
+    public boolean isValid(String s) {
+        int n = s.length();
+        if (n < 3) {
+            return false;
+        }
+
+        int vowels = 0;
+        int consonants = 0;
+
+        for (char c : s.toCharArray()) {
+            if (Character.isLetter(c)) {
+                if ("aeiouAEIOU".indexOf(c) != -1) {
+                    vowels++;
+                } else {
+                    consonants++;
                 }
-                if(hasVowel && hasConsonant) return true;
+            } else if (!Character.isDigit(c)) {
+                return false;
             }
         }
-        return hasVowel && hasConsonant ;
-        
+        return vowels >= 1 && consonants >= 1;
     }
 }
