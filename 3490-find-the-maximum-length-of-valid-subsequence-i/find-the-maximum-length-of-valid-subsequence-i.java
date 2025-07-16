@@ -19,5 +19,6 @@ class Solution {
         //System.out.println("len = "+len+" Math.max(evenDp, oddDp))"+ Math.max(evenDp, oddDp));
         return Math.max(Math.max(evens, odds), Math.max(evenDp, oddDp));
         
+        
     }
 }
