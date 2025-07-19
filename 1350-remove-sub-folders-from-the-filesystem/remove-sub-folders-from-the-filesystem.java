@@ -3,10 +3,11 @@ class Solution {
         List<String> result=new ArrayList<>();
         if(folder.length==0) return result;
         Arrays.sort(folder);
-        result.add(folder[0]);
-        for(int i=1;i<folder.length;i++)
+       
+        for(String f:folder)
         {
-            if(!folder[i].startsWith(result.get(result.size()-1)+"/")) result.add(folder[i]);
+            if(result.isEmpty()) result.add(f);
+            else if(!f.startsWith(result.get(result.size()-1)+"/")) result.add(f);
         }
         return result;
     }
