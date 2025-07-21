@@ -11,8 +11,8 @@ class Solution {
                 last = chars[i];
                 count = 0;
             }
-
-            if (++count > 2) continue;
+            count++;
+            if (count > 2) continue;
 
             chars[pos++] = chars[i];
         }
